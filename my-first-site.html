@@ -1,0 +1,187 @@
+<title>Мой первый сайт</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+
+<!--
+  ============================================================
+  ЭТО ВЕСЬ САЙТ. Один файл, три слоя:
+
+  1. HTML  — СТРУКТУРА. Что есть на странице: заголовки, текст, кнопки.
+  2. CSS   — ВНЕШНИЙ ВИД. Цвета, шрифты, отступы. Блок <style> ниже.
+  3. JS    — ПОВЕДЕНИЕ. Что происходит при нажатии. Блок <script> в конце.
+
+  Браузер читает файл сверху вниз и собирает из него страницу.
+  Попробуйте: поменяйте любой текст ниже, сохраните и обновите
+  страницу в браузере — вы увидите изменение.
+  ============================================================
+-->
+
+<!-- Шрифты подгружаются с Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Golos+Text:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+
+<!-- ======================= 2. CSS ======================= -->
+<style id="main-style">
+  /* Переменные: цвета и шрифты задаём один раз и используем везде */
+  :root {
+    --bg: #f3f5f7;        /* фон страницы */
+    --card: #ffffff;      /* фон блоков */
+    --text: #1b2430;      /* основной текст */
+    --muted: #5d6b7c;     /* второстепенный текст */
+    --line: #dce2e9;      /* линии и рамки */
+    --html: #d9480f;      /* цвет-метка для HTML */
+    --css: #1c7ed6;       /* цвет-метка для CSS */
+    --js: #a07a00;        /* цвет-метка для JS */
+    --font-head: "Unbounded", "Arial Black", sans-serif;
+    --font-body: "Golos Text", "Segoe UI", Arial, sans-serif;
+    --font-code: "JetBrains Mono", Consolas, monospace;
+  }
+  /* Тёмная тема: те же переменные, другие значения */
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #12171d; --card: #1a212a; --text: #e6ebf1; --muted: #9aa8b8;
+      --line: #2c3642; --html: #ff8a4c; --css: #5fb0ff; --js: #f0c33c;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #12171d; --card: #1a212a; --text: #e6ebf1; --muted: #9aa8b8;
+    --line: #2c3642; --html: #ff8a4c; --css: #5fb0ff; --js: #f0c33c;
+    color-scheme: dark;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 17px;
+    line-height: 1.6;
+    padding-block: 48px 64px;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+  }
+
+  /* Ограничиваем ширину, чтобы текст было удобно читать */
+  .page { max-width: 720px; margin: 0 auto; display: grid; gap: 40px; }
+
+  h1 {
+    font-family: var(--font-head);
+    font-size: clamp(30px, 7vw, 48px);
+    line-height: 1.1;
+    margin: 0 0 12px;
+    text-wrap: balance;
+  }
+  h2 { font-family: var(--font-head); font-size: 20px; margin: 0 0 8px; }
+  p  { margin: 0; max-width: 62ch; }
+  .lead { color: var(--muted); font-size: 19px; }
+
+  /* Три блока-слоя */
+  .layers { display: grid; gap: 16px; }
+  .layer {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 20px 22px;
+    display: grid;
+    gap: 10px;
+  }
+  .tag {
+    font-family: var(--font-code);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: .04em;
+  }
+  .layer.html .tag { color: var(--html); }
+  .layer.css  .tag { color: var(--css); }
+  .layer.js   .tag { color: var(--js); }
+
+  code {
+    font-family: var(--font-code);
+    font-size: 14px;
+    background: var(--bg);
+    padding: 1px 6px;
+    border-radius: 4px;
+  }
+
+  /* Кнопки */
+  .actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+  button {
+    font: 600 16px var(--font-body);
+    color: var(--text);
+    background: var(--card);
+    border: 1.5px solid var(--text);
+    border-radius: 8px;
+    padding: 10px 18px;
+    cursor: pointer;
+  }
+  button:hover { background: var(--text); color: var(--card); }
+  button:focus-visible { outline: 3px solid var(--css); outline-offset: 2px; }
+  .counter { font-family: var(--font-code); color: var(--muted); }
+
+  footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line); padding-top: 16px; }
+</style>
+
+<!-- ======================= 1. HTML ======================= -->
+<!-- Всё, что ниже, — это содержимое страницы -->
+<main class="page">
+
+  <header>
+    <h1>Мой первый сайт</h1>
+    <p class="lead">Любая веб-страница — это текстовый файл. Браузер читает его и рисует то, что вы видите. Этот сайт состоит из трёх частей.</p>
+  </header>
+
+  <section class="layers">
+    <div class="layer html">
+      <span class="tag">HTML · структура</span>
+      <h2>Что есть на странице</h2>
+      <p>Теги вроде <code>&lt;h1&gt;</code> (заголовок), <code>&lt;p&gt;</code> (абзац) и <code>&lt;button&gt;</code> (кнопка) описывают содержимое. Это скелет страницы.</p>
+    </div>
+
+    <div class="layer css">
+      <span class="tag">CSS · внешний вид</span>
+      <h2>Как это выглядит</h2>
+      <p>Правила стилей задают цвета, шрифты и отступы. Нажмите кнопку ниже: стили отключатся, и останется голый HTML.</p>
+      <div class="actions">
+        <!-- id нужен, чтобы JavaScript нашёл эту кнопку -->
+        <button id="toggle-css" type="button">Выключить CSS</button>
+      </div>
+    </div>
+
+    <div class="layer js">
+      <span class="tag">JavaScript · поведение</span>
+      <h2>Что происходит при действии</h2>
+      <p>Скрипт реагирует на нажатия и меняет страницу без перезагрузки. Простейший пример — счётчик.</p>
+      <div class="actions">
+        <button id="click-me" type="button">Нажми меня</button>
+        <span class="counter" id="counter">Нажатий: 0</span>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    Сделано 14 октября 2026 · один файл, около 150 строк
+  </footer>
+
+</main>
+
+<!-- ======================= 3. JavaScript ======================= -->
+<script>
+  // Находим элементы на странице по их id
+  const clickButton = document.getElementById("click-me");
+  const counterText = document.getElementById("counter");
+  const cssButton   = document.getElementById("toggle-css");
+  const styleBlock  = document.getElementById("main-style");
+
+  // Счётчик: при каждом нажатии увеличиваем число и обновляем текст
+  let clicks = 0;
+  clickButton.addEventListener("click", () => {
+    clicks = clicks + 1;
+    counterText.textContent = "Нажатий: " + clicks;
+  });
+
+  // Переключатель стилей: включаем и выключаем весь блок <style>
+  cssButton.addEventListener("click", () => {
+    styleBlock.disabled = !styleBlock.disabled;
+    cssButton.textContent = styleBlock.disabled ? "Включить CSS обратно" : "Выключить CSS";
+  });
+</script>
